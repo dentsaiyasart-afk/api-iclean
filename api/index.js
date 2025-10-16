@@ -140,12 +140,12 @@ app.post('/api/wholesale-inquiry', async (req, res) => {
                         <p>ในระหว่างนี้ คุณสามารถ:</p>
                         <ul>
                             <li>✅ ดูข้อมูลผลิตภัณฑ์เพิ่มเติมบนเว็บไซต์</li>
-                            <li>✅ ติดตามเพจ Facebook: @iclean.th</li>
-                            <li>✅ สอบถามเพิ่มเติมทาง Line: @iclean.th</li>
+                            <li>✅ ติดตามเพจ Facebook: I-Clean น้ำยาล้างจานสับปะรด Organic 100%</li>
+                            <li>✅ สอบถามเพิ่มเติมทาง Line: @i_clean</li>
                         </ul>
                         
                         <center>
-                            <a href="https://i-clean.co.th" class="button">เยี่ยมชมเว็บไซต์</a>
+                            <a href="https://i-clean.vercel.app/" class="button">เยี่ยมชมเว็บไซต์</a>
                         </center>
                     </div>
                     <div class="footer">
@@ -181,7 +181,7 @@ app.post('/api/wholesale-inquiry', async (req, res) => {
         `;
         
         await sendEmail(
-            process.env.ADMIN_EMAIL || 'info@i-clean.co.th', 
+            process.env.ADMIN_EMAIL || 'aongartfarm@gmail.com', 
             `🆕 Wholesale Inquiry - ${fullname}`, 
             adminEmailHTML
         );
@@ -274,7 +274,7 @@ app.post('/api/newsletter-subscribe', async (req, res) => {
                         <p>ใช้โค้ด: <strong style="color: #4A7C4E; font-size: 18px;">WELCOME10</strong></p>
                         
                         <center>
-                            <a href="https://i-clean.co.th" class="button">เริ่มช้อปปิ้ง</a>
+                            <a href="https://i-clean.vercel.app/" class="button">เริ่มช้อปปิ้ง</a>
                         </center>
                     </div>
                 </div>
