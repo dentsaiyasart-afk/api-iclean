@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-Clean API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4A7C4E 0%, #5B9BD5 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4A7C4E;
+        }
+        
+        .section h2 {
+            color: #4A7C4E;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4A7C4E;
+        }
+        
+        button {
+            background: #4A7C4E;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #3d6741;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            display: none;
+        }
+        
+        .response.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+        
+        .response.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+        
+        .api-url-input {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 i-Clean API Tester</h1>
+            <p>ทดสอบ API endpoints ของ i-Clean</p>
+        </div>
+        
+        <div class="content">
+            <!-- API URL Configuration -->
+            <div class="section">
+                <h2>⚙️ API Configuration</h2>
+                <div class="form-group">
+                    <label>API Base URL</label>
+                    <input type="text" id="apiUrl" class="api-url-input" 
+                           value="https://i-clean-api.vercel.app/api" 
+                           placeholder="https://your-api.vercel.app/api">
+                </div>
+                <button onclick="testHealth()">🏥 Test Health Check</button>
+                <div id="healthResponse" class="response"></div>
+            </div>
+            
+            <!-- Wholesale Inquiry Test -->
+            <div class="section">
+                <h2>📋 Test Wholesale Inquiry</h2>
+                <div class="form-group">
+                    <label>ชื่อ-นามสกุล</label>
+                    <input type="text" id="wholeName" value="ทดสอบ ระบบ">
+                </div>
+                <div class="form-group">
+                    <label>อีเมล</label>
+                    <input type="email" id="wholeEmail" value="test@example.com">
+                </div>
+                <div class="form-group">
+                    <label>โทรศัพท์</label>
+                    <input type="text" id="wholePhone" value="081-234-5678">
+                </div>
+                <div class="form-group">
+                    <label>ประเภทธุรกิจ</label>
+                    <select id="wholeBusiness">
+                        <option value="online">ขายปลีกออนไลน์</option>
+                        <option value="store">ร้านค้า/ร้านสะดวกซื้อ</option>
+                        <option value="reseller">ตัวแทนจำหน่าย/Dropship</option>
+                        <option value="other">ธุรกิจอื่นๆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ข้อความ (optional)</label>
+                    <textarea id="wholeMessage" rows="3">สนใจเป็นตัวแทนจำหน่าย</textarea>
+                </div>
+                <button onclick="testWholesale()">🚀 Send Wholesale Inquiry</button>
+                <div id="wholesaleResponse" class="response"></div>
+            </div>
+            
+            <!-- Newsletter Test -->
+            <div class="section">
+                <h2>📧 Test Newsletter Subscription</h2>
+                <div class="form-group">
+                    <label>อีเมล</label>
+                    <input type="email" id="newsEmail" value="newsletter@example.com">
+                </div>
+                <button onclick="testNewsletter()">✉️ Subscribe Newsletter</button>
+                <div id="newsletterResponse" class="response"></div>
+            </div>
+            
+            <!-- Quick Tests -->
+            <div class="section">
+                <h2>⚡ Quick Tests</h2>
+                <button onclick="testInvalidEmail()" style="margin-bottom: 10px;">
+                    ❌ Test Invalid Email (Validation)
+                </button>
+                <button onclick="testMissingFields()">
+                    ❌ Test Missing Fields (Validation)
+                </button>
+                <div id="quickTestResponse" class="response"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value.trim();
+        }
+        
+        function showResponse(elementId, data, isSuccess) {
+            const element = document.getElementById(elementId);
+            element.className = 'response ' + (isSuccess ? 'success' : 'error');
+            element.textContent = JSON.stringify(data, null, 2);
+        }
+        
+        function disableButton(button) {
+            button.disabled = true;
+            button.innerHTML = '<span class="loading"></span> กำลังส่ง...';
+        }
+        
+        function enableButton(button, text) {
+            button.disabled = false;
+            button.textContent = text;
+        }
+        
+        async function testHealth() {
+            const button = event.target;
+            const originalText = button.textContent;
+            disableButton(button);
+            
+            try {
+                const response = await fetch(`${getApiUrl()}/health`);
+                const data = await response.json();
+                showResponse('healthResponse', data, response.ok);
+            } catch (error) {
+                showResponse('healthResponse', { error: error.message }, false);
+            } finally {
+                enableButton(button, originalText);
+            }
+        }
+        
+        async function testWholesale() {
+            const button = event.target;
+            const originalText = button.textContent;
+            disableButton(button);
+            
+            const data = {
+                fullname: document.getElementById('wholeName').value,
+                email: document.getElementById('wholeEmail').value,
+                phone: document.getElementById('wholePhone').value,
+                business_type: document.getElementById('wholeBusiness').value,
+                message: document.getElementById('wholeMessage').value
+            };
+            
+            try {
+                const response = await fetch(`${getApiUrl()}/wholesale-inquiry`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                showResponse('wholesaleResponse', result, response.ok);
+            } catch (error) {
+                showResponse('wholesaleResponse', { error: error.message }, false);
+            } finally {
+                enableButton(button, originalText);
+            }
+        }
+        
+        async function testNewsletter() {
+            const button = event.target;
+            const originalText = button.textContent;
+            disableButton(button);
+            
+            const data = {
+                email: document.getElementById('newsEmail').value
+            };
+            
+            try {
+                const response = await fetch(`${getApiUrl()}/newsletter-subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                showResponse('newsletterResponse', result, response.ok);
+            } catch (error) {
+                showResponse('newsletterResponse', { error: error.message }, false);
+            } finally {
+                enableButton(button, originalText);
+            }
+        }
+        
+        async function testInvalidEmail() {
+            const button = event.target;
+            const originalText = button.textContent;
+            disableButton(button);
+            
+            const data = {
+                email: 'not-an-email'
+            };
+            
+            try {
+                const response = await fetch(`${getApiUrl()}/newsletter-subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                showResponse('quickTestResponse', result, false);
+            } catch (error) {
+                showResponse('quickTestResponse', { error: error.message }, false);
+            } finally {
+                enableButton(button, originalText);
+            }
+        }
+        
+        async function testMissingFields() {
+            const button = event.target;
+            const originalText = button.textContent;
+            disableButton(button);
+            
+            const data = {
+                fullname: 'ทดสอบ'
+                // Missing required fields
+            };
+            
+            try {
+                const response = await fetch(`${getApiUrl()}/wholesale-inquiry`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                showResponse('quickTestResponse', result, false);
+            } catch (error) {
+                showResponse('quickTestResponse', { error: error.message }, false);
+            } finally {
+                enableButton(button, originalText);
+            }
+        }
+    </script>
+</body>
+</html>
