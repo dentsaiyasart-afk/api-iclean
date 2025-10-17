@@ -110,7 +110,7 @@ app.post('/api/wholesale-inquiry', async (req, res) => {
             <head>
                 <meta charset="UTF-8">
                 <style>
-                    body { font-family: 'Kanit', Arial, sans-serif; line-height: 1.6; color: #333; }
+                    body { font-family: 'Mali', Arial, sans-serif; line-height: 1.6; color: #333; }
                     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
                     .header { background: linear-gradient(135deg, #4A7C4E 0%, #5B9BD5 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
                     .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
@@ -140,12 +140,18 @@ app.post('/api/wholesale-inquiry', async (req, res) => {
                         <p>ในระหว่างนี้ คุณสามารถ:</p>
                         <ul>
                             <li>✅ ดูข้อมูลผลิตภัณฑ์เพิ่มเติมบนเว็บไซต์</li>
-                            <li>✅ ติดตามเพจ Facebook: I-Clean น้ำยาล้างจานสับปะรด Organic 100%</li>
+                            <li>✅ ติดตามเพจ Facebook: I-Clean</li>
                             <li>✅ สอบถามเพิ่มเติมทาง Line: @i_clean</li>
                         </ul>
                         
                         <center>
                             <a href="https://i-clean.vercel.app/" class="button">เยี่ยมชมเว็บไซต์</a>
+                            <h4>🛒 ช่องทางการซื้อทางออนไลน์</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 FB: I-Clean สเปรย์กันยุงตะไคร้หอม Organic 100%</a>
+                        <a href="https://www.tiktok.com/@i_clean.organic" class="social-link" target="_blank" rel="noopener noreferrer">🎵 TikTok: I-Clean</a>
+                        <a href="https://shopee.co.th/i_clean" class="social-link" target="_blank" rel="noopener noreferrer">🛒 Shopee: I-Clean</a>
+                        <a href="https://www.lazada.co.th/shop/c-iclean" class="social-link" target="_blank" rel="noopener noreferrer">🛒 Lazada: I-Clean</a>
                         </center>
                     </div>
                     <div class="footer">
@@ -270,11 +276,13 @@ app.post('/api/newsletter-subscribe', async (req, res) => {
                             <li>🌱 ความรู้เกี่ยวกับ Organic Living</li>
                         </ul>
                         
-                        <p><strong>🎉 รับส่วนลด 10% สำหรับคำสั่งซื้อแรก!</strong></p>
-                        <p>ใช้โค้ด: <strong style="color: #4A7C4E; font-size: 18px;">WELCOME10</strong></p>
-                        
                         <center>
-                            <a href="https://i-clean.vercel.app/" class="button">เริ่มช้อปปิ้ง</a>
+                            <h4>🛒 ช่องทางการซื้อทางออนไลน์</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 FB: I-Clean สเปรย์กันยุงตะไคร้หอม Organic 100%</a>
+                        <a href="https://www.tiktok.com/@i_clean.organic" class="social-link" target="_blank" rel="noopener noreferrer">🎵 TikTok: I-Clean</a>
+                        <a href="https://shopee.co.th/i_clean" class="social-link" target="_blank" rel="noopener noreferrer">🛒 Shopee: I-Clean</a>
+                        <a href="https://www.lazada.co.th/shop/c-iclean" class="social-link" target="_blank" rel="noopener noreferrer">🛒 Lazada: I-Clean</a>
                         </center>
                     </div>
                 </div>
