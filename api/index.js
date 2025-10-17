@@ -290,7 +290,7 @@ app.post('/api/newsletter-subscribe', async (req, res) => {
             </html>
         `;
         
-        await sendEmail(email, '🎉 ยินดีต้อนรับสู่ i-Clean + รับส่วนลด 10%!', welcomeEmailHTML);
+        await sendEmail(email, '🎉 ยินดีต้อนรับสู่ i-Clean', welcomeEmailHTML);
         
         // Log subscriber
         console.log('New Newsletter Subscriber:', subscriber);
